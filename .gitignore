@@ -1,0 +1,7 @@
+.env
+__pycache__
+my.cnf
+db.sqlite3
+migrations
+__init__.py
+.aws
