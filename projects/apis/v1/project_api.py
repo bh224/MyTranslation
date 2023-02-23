@@ -1,7 +1,9 @@
 from urllib import request
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from comments.services.comment_service import get_comments_list
 from projects.serializers import ProjectListSerializer, ProjectDetailSerializer
+from comments.serializers import CommentSerializer
 from projects.models import Project, Project_Member
 from users.models import User
 
@@ -26,15 +28,16 @@ class Projects(APIView):
         author = User.objects.get(pk=author_pk)
         checker = User.objects.get(pk=checker_pk)
 
+        # todo transaction
         serializer = ProjectDetailSerializer(data=request.data)
         if serializer.is_valid():
-            project = serializer.save(author=manager)
+            project = serializer.save(uploader=manager)
 
             Project_Member.objects.create(project=project, member=manager, role="manager")
             Project_Member.objects.create(project=project, member=author, role="author")
             Project_Member.objects.create(project=project, member=checker, role="checker")
             
-            serializer = ProjectListSerializer(project)
+            serializer = ProjectDetailSerializer(project)
             return Response(serializer.data)
         return Response(serializer.errors)
             

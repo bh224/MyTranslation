@@ -18,6 +18,7 @@ class ProjectListSerializer(ModelSerializer):
 class ProjectDetailSerializer(ModelSerializer):
     """ 프로젝트 상세 """
     author = UserSerializer(read_only=True)
+    members = UserSerializer(read_only=True, many=True)
 
     class Meta:
         model = Project
@@ -26,7 +27,7 @@ class ProjectDetailSerializer(ModelSerializer):
             "category",
             "title",
             "description",
-            # "members",
+            "members",
             "author",
         )
 
