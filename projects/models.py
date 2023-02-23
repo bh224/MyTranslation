@@ -13,7 +13,7 @@ class Project(CommonModel):
     title = models.CharField(max_length=250)
     description = models.CharField(max_length=250)
     members = models.ManyToManyField("users.User", through="Project_Member", related_name="projects")
-    author = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    uploader = models.ForeignKey("users.User", on_delete=models.CASCADE)
 
 class Project_Member(CommonModel):
     project = models.ForeignKey("projects.Project", on_delete=models.CASCADE)
