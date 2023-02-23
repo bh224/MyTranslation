@@ -15,7 +15,7 @@ class TestProjectServices(APITestCase):
         author = self.create_user("author", False)
         checker = self.create_user("checker", False)
 
-        project = Project.objects.create(category="webtoon", title="여신강림", description="한일/네이버웹툰/시즌1", author=manager)
+        project = Project.objects.create(category="webtoon", title="여신강림", description="한일/네이버웹툰/시즌1", uploader=manager)
 
         Project_Member.objects.create(project=project, member=manager, role="manager")
         Project_Member.objects.create(project=project, member=author, role="author")
@@ -37,7 +37,7 @@ class TestProjectServices(APITestCase):
         author = self.create_user("author", False)
         checker = self.create_user("checker", False)
 
-        project = Project.objects.create(category="webtoon", title="판타지", description="한일/웹툰/시즌1", author=manager)
+        project = Project.objects.create(category="webtoon", title="판타지", description="한일/웹툰/시즌1", uploader=manager)
 
         Project_Member.objects.create(project=project, member=manager, role="manager")
         Project_Member.objects.create(project=project, member=author, role="author")

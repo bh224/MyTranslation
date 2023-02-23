@@ -1,4 +1,3 @@
-from urllib import response
 from rest_framework.test import APITestCase
 from projects.models import Project, Project_Member
 from users.models import User
@@ -22,7 +21,7 @@ class TestProjectAPI(APITestCase):
                 category="webtoon",
                 title=f"title{i}",
                 description= "한일/네이버웹툰",
-                author=manager,
+                uploader=manager,
             )
             for i in range(1, 11)
         ]
@@ -61,8 +60,10 @@ class TestProjectAPI(APITestCase):
         result = response.json()
         project_pk = result["pk"]
         project = Project_Member.objects.filter(project=project_pk)
+        project_author = Project_Member.objects.filter(project=project_pk, member=author.pk).get()
 
         # Then
         self.assertEqual(result["title"], "여신강림")
         self.assertEqual(len(project), 3)
+        self.assertEqual(project_author.member.username, "author")
 
