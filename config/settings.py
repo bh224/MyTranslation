@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "trans.apps.TransConfig",
     "projects.apps.ProjectsConfig",
     "comments.apps.CommentsConfig",
+    "glossaries.apps.GlossariesConfig",
     "rest_framework",
 ]
 
