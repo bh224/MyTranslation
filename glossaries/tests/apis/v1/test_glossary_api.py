@@ -53,3 +53,14 @@ class TestGlossaryAPI(APITestCase):
         # self.assertEqual(result_glossary["trans_word"], "宇理 高校")
         self.assertEqual(glossary_response.status_code, 200)
 
+
+        # 카테고리별 글로서리 조회
+        # When
+        glossary_by_category_response = self.client.get(
+            f"/api/v1/projects/{project.pk}/glossaries", {"category":result_category["pk"]},
+        )
+        
+        glossary_by_category_result = glossary_by_category_response.json()
+
+        # Then
+        self.assertEqual([i["trans_word"] for i in glossary_by_category_result][0],  "宇理 高校")

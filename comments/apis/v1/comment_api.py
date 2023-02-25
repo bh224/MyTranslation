@@ -2,10 +2,10 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.exceptions import ParseError
 from rest_framework.response import Response
-from projects.models import Project
 from comments.models import Comment
 from comments.serializers import CommentSerializer
 from comments.services.comment_service import get_comments_list
+from projects.services.project_service import get_a_project
 from users.models import User
 
 
@@ -22,8 +22,7 @@ class Comments(APIView):
         return Response(serializer.data)
     
     def post(self, request, pk):
-        # todo 예외처리
-        project = Project.objects.get(pk=pk)
+        project = get_a_project(pk)
         writer = request.user
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
