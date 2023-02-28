@@ -45,12 +45,14 @@ INSTALLED_APPS = [
     "comments.apps.CommentsConfig",
     "glossaries.apps.GlossariesConfig",
     "rest_framework",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -58,6 +60,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "config.urls"
+
+INTERNAL_IPS = ["127.0.0.1"]
 
 TEMPLATES = [
     {

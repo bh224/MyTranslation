@@ -11,6 +11,7 @@ import io
 @api_view(("GET",))
 def excel_uploads(request):
     # 프로젝트
+    # filename = request.get_params("file")
     project = Project.objects.get(pk=1)
     # S3에서 파일 가져오기
     s3 = boto3.client("s3")
