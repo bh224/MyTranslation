@@ -10,16 +10,17 @@ from trans.services.translation_service import get_translation_data_list, put_ch
 class Translations(APIView):
     def get(self, request, pk):
         try:
-            next = request.get_params("next", 0)
+            next = request.query_params.get("next", 0)
             next = int(next)
         except:
             next = 0
+        print(next)
         data = get_translation_data_list(pk, next)
         serializer = TranslationDataSerializer(data, context={"request": request}, many=True)
         add_cursor_id = list(serializer.data)
-        add_cursor_id.append({"cursorId": 0})
+        add_cursor_id.append({"cursorId": next+1})
 
-        return Response(add_cursor_id)
+        return Response(serializer.data)
     
     def put(self, request, pk):
         updated_done = put_translation_data(request.data)
