@@ -7,7 +7,6 @@ class CategorySerializer(ModelSerializer):
         fields=(
             "pk",
             "name",
-            "author",
         )
         read_only_fields = ['project', "author"]
 
@@ -15,6 +14,7 @@ class CategorySerializer(ModelSerializer):
         return self.name
     
 class GlossarySerializer(ModelSerializer):
+    category = CategorySerializer(read_only=True)
     class Meta:
         model = Glossary
         fields=(
@@ -27,4 +27,6 @@ class GlossarySerializer(ModelSerializer):
             "details",
             "author",
         )
-        read_only_fields = ['project', "category", "author"]
+        read_only_fields = ['project', "author"]
+
+
