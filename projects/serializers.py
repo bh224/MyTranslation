@@ -34,8 +34,6 @@ class ProjectDetailSerializer(ModelSerializer):
 class ProjectMembersSerializer(ModelSerializer):
     """ 프로젝트 참여멤버 """
 
-    member = UserSerializer(read_only=True)
-
     class Meta:
         model = Project_Member
         fields = (
