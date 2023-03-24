@@ -19,11 +19,12 @@ from . import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", views.index,  name="index.html"),
+    path("", views.index),
     path("api/v1/users/", include("users.urls")),
     path("api/v1/projects/", include("projects.urls")),
     path("api/v1/glossaries/", include("glossaries.urls")),
     path("api/v1/trans/", include("trans.urls")),
     path("api/v1/comments/", include("comments.urls")),
     path('__debug__/', include('debug_toolbar.urls')),
+    path('dummyapp/', include('dummyapp.urls')),
 ]
