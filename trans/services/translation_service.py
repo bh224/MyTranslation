@@ -7,13 +7,13 @@ from trans.models import CheckTranslation, Translation
 from trans.serializers import PutTranslationSerializer, PutCheckTranslationSerializer
 
 def get_translation_data_list(project_pk: int, next: int) -> QuerySet[CheckTranslation]:
-    limit = 1
+    limit = 10
 
     # start = (page-1) * limit
     # end = start + limit
     # return CheckTranslation.objects.select_related("translation").filter(project=project_pk)[start:end]
 
-    # 커서기반 페이징
+    # 커서 페이징
     return CheckTranslation.objects.raw(
         f"SELECT * FROM trans_checktranslation LEFT OUTER JOIN trans_translation ON (trans_checktranslation.translation_id = trans_translation.id) WHERE trans_checktranslation.project_id = {project_pk} and trans_translation.id > {next} LIMIT {limit}"
     )
@@ -39,7 +39,8 @@ def put_check_data(data) -> List[int]:
         serializer = PutCheckTranslationSerializer(check_translation, data=data, partial=True)
         if serializer.is_valid():
             edited_check = serializer.save()
-            updated_done.append(edited_check.pk)
+            updated_done.append(edited_check.translation_id)
         else: 
             return Response(serializer.errors)
+    # print(updated_done)
     return updated_done
