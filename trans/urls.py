@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
+from trans.apis.v1 import translation_api
 
 urlpatterns = [
-    path("upload", views.excel_uploads),
+    path("papago", translation_api.PapagoAPI.as_view()),
 ]
