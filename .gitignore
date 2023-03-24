@@ -1,7 +1,14 @@
 .env
+.env.local
+.env.prod
 __pycache__
 my.cnf
 db.sqlite3
 migrations
 __init__.py
 .aws
+dummyapp
+static
+Dockerfile
+sample.py
+prod-settings.py
