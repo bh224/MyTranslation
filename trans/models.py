@@ -1,6 +1,5 @@
 from django.db import models
 from common.models import CommonModel
-from projects.apis.v1 import project_api
 
 # Create your models here.
 
