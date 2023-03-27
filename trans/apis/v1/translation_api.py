@@ -21,7 +21,6 @@ class Translations(APIView):
         serializer = TranslationDataSerializer(data, context={"request": request}, many=True)
         add_cursor_id = list(serializer.data)
         add_cursor_id.append({"cursorId": next+1})
-
         return Response(serializer.data)
     
     # 번역데이터 수정
