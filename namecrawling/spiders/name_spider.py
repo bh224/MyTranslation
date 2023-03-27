@@ -1,10 +1,8 @@
 import scrapy
-from namecrawling.items import NamecrawlingItem
 
 
 class MovieSpider(scrapy.Spider):
     name = "names"
-    # start_urls = ["https://namegen.jp/?country=japan&sex=male&middlename=&middlename_cond=fukumu&middlename_rarity=&middlename_rarity_cond=ika&lastname=&lastname_cond=fukumu&lastname_rarity=&lastname_rarity_cond=ika&lastname_type=name&firstname=&firstname_cond=fukumu&firstname_rarity=&firstname_rarity_cond=ika&firstname_type=name"]
 
     def __init__(self, sex=None, *args, **kwargs):
         super(MovieSpider, self).__init__(*args, **kwargs)
@@ -18,7 +16,6 @@ class MovieSpider(scrapy.Spider):
         ]
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse)
-
 
     def parse(self, response):
         names = response.css("table > tr")
