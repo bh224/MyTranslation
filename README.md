@@ -31,7 +31,7 @@
 ![React](https://img.shields.io/badge/Celery-white?style=flat&logo=celery&logoColor=37814A) ![React](https://img.shields.io/badge/Scrapy-white?style=flat&logo=scrapy&logoColor=499848) 
 
 - Frontend
-![React](https://img.shields.io/badge/React-white?style=flat&logo=javascript&logoColor=F7DF1E) ![React](https://img.shields.io/badge/React-white?style=flat&logo=react&logoColor=61DAFB) ![React](https://img.shields.io/badge/CloudFront-white?style=flat&logo=amazonaws&logoColor=232F3E) ![React](https://img.shields.io/badge/GihubActions-white?style=flat&logo=githubactions&logoColor=2088FF)
+![React](https://img.shields.io/badge/Javascript-white?style=flat&logo=javascript&logoColor=F7DF1E) ![React](https://img.shields.io/badge/React-white?style=flat&logo=react&logoColor=61DAFB) ![React](https://img.shields.io/badge/CloudFront-white?style=flat&logo=amazonaws&logoColor=232F3E) ![React](https://img.shields.io/badge/GihubActions-white?style=flat&logo=githubactions&logoColor=2088FF)
 ![React](https://img.shields.io/badge/ChakraUI-white?style=flat&logo=chakraui&logoColor=319795) ![React](https://img.shields.io/badge/ReactQuery-white?style=flat&logo=reactquery&logoColor=FF4154) ![React](https://img.shields.io/badge/ReactHookForn-white?style=flat&logo=reacthookform&logoColor=EC5990) ![React](https://img.shields.io/badge/ReactMarker-white?style=flat&logo=reactmarker&logoColor=EC5990) 
 
 - Deployment
