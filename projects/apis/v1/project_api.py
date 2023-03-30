@@ -24,12 +24,12 @@ import time
 class Tests(APIView):
     def get(self, request):
         task_id = test_get_result.delay()
-        print(task_id)
+        #print(task_id)
         result = AsyncResult(id=str(task_id), app=app)
         while True:
             time.sleep(1)
             if result.status == "SUCCESS":
-                print(result.status)
+                #print(result.status)
                 result.forget()
             break
         return Response({"msg":"done"})

@@ -54,10 +54,10 @@ class Marker(APIView):
                 Marker.words_list.add(word[0:j])
 
     def get(self, request, pk):
-        # todo 배포시 db 환경설정 추가
+        # 배포시 db 환경설정 추가
         conn = MySQLdb.connect(read_default_file="my.cnf")
         cursor = conn.cursor()
-        # todo 배포시 db 환경설정 추가
+        # 배포시 db 환경설정 추가
         query = f"SELECT gs.id, gs.origin_word FROM dev_mytranslation.glossaries_glossary as gs where gs.project_id={pk} order by gs.category_id;"
 
         cursor.execute(query)
