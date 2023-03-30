@@ -37,7 +37,7 @@
 - Deployment
 ![React](https://img.shields.io/badge/Docker-white?style=flat&logo=docker&logoColor=2496ED) ![React](https://img.shields.io/badge/EC2-white?style=flat&logo=amazonec2&logoColor=FF9900) ![React](https://img.shields.io/badge/RDS-white?style=flat&logo=amazonrds&logoColor=527FFF) ![React](https://img.shields.io/badge/Nginx-white?style=flat&logo=nginx&logoColor=009639) ![React](https://img.shields.io/badge/Gunicorn-white?style=flat&logo=gunicorn&logoColor=499848)
 
-##### 📌 페이지
+##### 📌 페이지 캡처
 - 번역 프로젝트 작업 화면
 ![](https://user-images.githubusercontent.com/104023868/227997001-0e7344fe-fad6-479a-a7bc-065ecbf4c0d7.png)
 
