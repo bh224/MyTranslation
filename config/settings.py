@@ -16,7 +16,7 @@ import os, environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(DEBUG=(bool, True))
-environ.Env.read_env(env_file=os.path.join(BASE_DIR, ".env.prod"))
+environ.Env.read_env(env_file=os.path.join(BASE_DIR, ".env.local"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -25,10 +25,9 @@ environ.Env.read_env(env_file=os.path.join(BASE_DIR, ".env.prod"))
 SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUT = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['django', 'dev-api.qmffnxod.store', '3.35.83.3']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -49,10 +48,9 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "corsheaders",
     "dummyapp",
-    'django_celery_results',
-    'django_celery_beat',
+    "django_celery_results",
+    "django_celery_beat",
     "namecrawling",
-
 ]
 
 MIDDLEWARE = [
@@ -69,12 +67,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "config.urls"
 
+# debug toolbar
 INTERNAL_IPS = ["127.0.0.1"]
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": ["build"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -96,14 +95,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "prod_translation",
-        "USER": "admin",
-        "PASSWORD": env("RDS_PASSWORD"),
-        "HOST": env("RDS_ENDPOINT"),
-        "PORT": "3306",
+        "OPTIONS": {
+            "read_default_file": "my.cnf",
+        },
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -140,48 +136,40 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = BASE_DIR / "static/"
+STATICFILES_DIRS = []
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'users.User'
-
+AUTH_USER_MODEL = "users.User"
 
 
 # development 나중에 settings.py 분리
-CORS_ALLOWED_ORIGINS = ["https://qmffnxod.store", "https://www.qmffnxod.store", "https://dev-api.qmffnxod.store"]
+CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000"]
 CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = ["https://qmffnxod.store", "https://www.qmffnxod.store", "https://dev-api.qmffnxod.store"]
-
-SESSION_COOKIE_DOMAIN = ".qmffnxod.store"
-CSRF_COOKIE_DOMAIN = ".qmffnxod.store"
-
-#Cross Origin Opener Policy error
-SECURE_CROSS_ORIGIN_OPENER_POLICY = None
-
+CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:3000"]
 
 # CELERY SETTINGS
-CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_URL = "redis://127.20.0.2:6379"
 CELERY_ACCEPT_CONTENT = ["application/json"]
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TASK_SERIALIZER = "json"
 CELERY_TIMEZONE = "Asia/Seoul"
-CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = "redis://127.20.0.2:6379"
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': 'redis://redis:6379/0', 
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.20.0.2:6379",
     }
 }
 
+
 # CELERY BEAT SETTINGS
 # CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
-
 
 # Sending Email
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -197,77 +185,3 @@ GG_CLIENT_ID = env("GG_CLIENT_ID")
 GG_CLIENT_SECRET = env("GG_CLIENT_SECRET")
 LOGIN_REDIRECT_URL = env("LOGIN_REDIRECT_URL")
 AWS_BUCKET = env("AWS_BUCKET")
-ACCESS_KEY= env("ACCESS_KEY")
-SECRET_KEY=env("SECRET_KEY")
-REGION=env("REGION")
-
-
-
-# Logs
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse',
-        },
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
-        },
-    },
-    'formatters': {
-        'django.server': {
-            '()': 'django.utils.log.ServerFormatter',
-            'format': '[{server_time}] {message}',
-            'style': '{',
-        },
-        'standard': {
-            'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
-        },
-    },
-    'handlers': {
-        'console': {
-            'level': 'INFO',
-            'filters': ['require_debug_true'],
-            'class': 'logging.StreamHandler',
-        },
-        'django.server': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'django.server',
-        },
-        'mail_admins': {
-            'level': 'ERROR',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler'
-        },
-        'file': {
-            'level': 'INFO',
-            'filters': ['require_debug_false'],
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': BASE_DIR / 'logs/config.log',
-            'maxBytes': 1024*1024*5,  # 5 MB
-            'backupCount': 5,
-            'formatter': 'standard',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console', 'mail_admins', 'file'],
-            'level': 'INFO',
-        },
-        'django.server': {
-            'handlers': ['django.server'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-        'users': {
-            'handlers': ['console', 'file'],
-            'level': 'INFO',
-        },
-        'projects': {
-            'handlers': ['console', 'file'],
-            'level': 'INFO',
-        },
-    }
-}
