@@ -9,5 +9,6 @@ __init__.py
 .aws
 dummyapp
 static
+Dockerfile
 sample.py
 prod-settings.py
