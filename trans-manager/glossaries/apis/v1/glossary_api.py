@@ -58,7 +58,7 @@ class Marker(APIView):
         conn = MySQLdb.connect(read_default_file="my.cnf")
         cursor = conn.cursor()
         # todo 배포시 db 환경설정 추가
-        query = f"SELECT gs.id, gs.origin_word FROM dev_mytranslation.glossaries_glossary as gs where gs.project_id={pk} order by gs.category_id;"
+        query = f"SELECT gs.id, gs.origin_word FROM prod_translation.glossaries_glossary as gs where gs.project_id={pk} order by gs.category_id;"
 
         cursor.execute(query)
         result = list(cursor.fetchall())
